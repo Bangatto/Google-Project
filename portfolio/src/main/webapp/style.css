@@ -7,3 +7,46 @@
 #greeting-container {
   margin-top: 20px;
 }
+body, html{
+    height: 100%;
+    margin: 0;
+    }
+.bg {
+    background-image: url("../images/BP2.png");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.circular--square{
+    border-radius: 60%;
+    border-top-left-radius: 60%;
+    border-bottom-left-radius: 60%;
+    border-top-right-radius: 60%;
+    border-bottom-right-radius: 60%;
+
+}
+p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: rgb(0, 225, 255);
+    float: right;
+
+}
+a {
+    background-color: transparent;
+    text-decoration: none;
+    text-decoration-line: underline;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
+}
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
+   
+}
