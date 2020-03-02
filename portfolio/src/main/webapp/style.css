@@ -53,3 +53,7 @@ a:-webkit-any-link {
     transform: rotate(90deg) translateY(-100%);
     transform-origin:top left;
 }
+
+#quote-container {
+  margin-top: 20px;
+}
