@@ -32,4 +32,23 @@ async function getRandomQuoteUsingAsyncAwait() {
   const quote = await response.text();
   document.getElementById('quote-container').innerText = quote;
 }
-
+function getMessages() {
+  fetch('/data').then(response => response.json()).then((messages) => {
+    // stats is an object, not a string, so we have to
+    // reference its fields to create HTML content
+    console.log(messages);
+    const messageList = document.getElementById('message-container');
+    messageList.innerHTML = '';
+    //loop through the json array
+    for (let element in messages){
+        var node = createListElement(messages[element]);
+        messageList.appendChild(node);
+    }
+    });
+}
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
