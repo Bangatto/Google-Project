@@ -26,3 +26,10 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+/* add a random quote to the page */
+async function getRandomQuoteUsingAsyncAwait() {
+  const response = await fetch('/random-quote');
+  const quote = await response.text();
+  document.getElementById('quote-container').innerText = quote;
+}
+
