@@ -191,7 +191,7 @@ Once you've created the `images` directory, right-click it and select
 To reference an image in your `images` directory, use a path that starts with a
 `/` forward slash, like `/images/cat.jpg`. This path will work on a development
 server and when you deploy to a live URL.
-
+mvn
 Modify your
 <walkthrough-editor-open-file
     filePath="software-product-sprint/portfolio/src/main/webapp/index.html">
@@ -336,7 +336,7 @@ world, you can deploy it to a live server!
 To deploy to a live server:
 
 -   Navigate to
-    [https://console.cloud.google.com/home/dashboard](https://console.cloud.google.com/home/dashboard).
+    [https://cd ..console.cloud.google.com/home/dashboard](https://console.cloud.google.com/home/dashboard).
 -   Make sure your project is selected in the dropdown at the top.
 -   Find the **Project ID** on that page.
 -   Open the

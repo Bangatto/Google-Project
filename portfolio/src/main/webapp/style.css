@@ -3,7 +3,57 @@
   margin-right: auto;
   width: 650px;
 }
+body, html{
+    height: 100%;
+    margin: 0;
+    /*
+    margin-left: auto;
+     border-radius: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+*/
+}
 
-#greeting-container {
+body, .container{
+    background: rgb(209,209,209);
+    background: linear-gradient(180deg, rgba(209,209,209,1) 0%, rgba(240,240,240,1) 14%, rgba(255,255,255,1) 54%);
+}
+
+a {
+    background-color: transparent;
+    text-decoration: none;
+    text-decoration-line: underline;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
+}
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
+}
+.profile-pic{
+    border-radius: 60%;
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+.container{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+* {
+    font-family: 'arial';
+}
+.rotate{
+    transform: rotate(90deg) translateY(-100%);
+    transform-origin:top left;
+}
+
+#quote-container {
   margin-top: 20px;
 }
