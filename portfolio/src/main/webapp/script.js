@@ -34,8 +34,7 @@ async function getRandomQuoteUsingAsyncAwait() {
 }
 function getMessages() {
   fetch('/data').then(response => response.json()).then((messages) => {
-    // stats is an object, not a string, so we have to
-    // reference its fields to create HTML content
+
     console.log(messages);
     const messageList = document.getElementById('message-container');
     messageList.innerHTML = '';
