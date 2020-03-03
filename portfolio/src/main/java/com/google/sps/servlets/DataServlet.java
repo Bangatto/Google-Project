@@ -13,10 +13,12 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
-
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 import java.util.List;
@@ -29,9 +31,21 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  ArrayList<String> messages = new ArrayList<String>();
+  List<String>  messages= new ArrayList<String>();
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("userComment").addSort("timestamp", SortDirection.DESCENDING);
+     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+        long id = entity.getKey().getId();
+        String userComment = (String) entity.getProperty("userComment");
+        long timestamp = (long) entity.getProperty("timestamp");
+
+        messages.add(userComment);
+    }
+
     Gson gson = new Gson();
     String json = gson.toJson(messages);
 
@@ -47,11 +61,11 @@ public class DataServlet extends HttpServlet {
   }
   */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String UserComment = request.getParameter("text-input");
+    String userComment = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
-
-    Entity taskEntity = new Entity("UserComment");
-    taskEntity.setProperty("UserComment", UserComment);
+    //save the user comments
+    Entity taskEntity = new Entity("userComment");
+    taskEntity.setProperty("userComment", userComment);
     taskEntity.setProperty("timestamp", timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
