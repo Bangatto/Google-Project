@@ -19,6 +19,8 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.api.users.UserService;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 import java.util.List;
@@ -58,7 +60,7 @@ public class DataServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     // Only logged-in users can post messages
     if (!userService.isUserLoggedIn()) {
-      response.sendRedirect("/logon");
+      response.sendRedirect("/login");
       return;
     }
 
