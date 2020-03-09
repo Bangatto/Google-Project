@@ -55,7 +55,7 @@ async function checkUserLoginStatus() {
    logInOutDiv.style.display="none";
   
   //get login status
-  const response = await fetch('/logon');
+  const response = await fetch('/login');
   const loginInfo = await response.json();
 
   //display form and logUrl based on whether user is logged in or not
