@@ -45,9 +45,43 @@ function getMessages() {
     }
     });
 }
+
+//check whether user is logged in using async
+async function checkUserLoginStatus() {
+    const commentForm = document.getElementById('comment-form');
+    const logInOutDiv = document.getElementById('logInOut');
+  //set visibility of form and logurl to none
+   commentForm.style.display="none";
+   logInOutDiv.style.display="none";
+  
+  //get login status
+  const response = await fetch('/logon');
+  const loginInfo = await response.json();
+
+  //display form and logUrl based on whether user is logged in or not
+  if(loginInfo.isLoggedIn === "true"){
+      commentForm.style.display="block";
+      logInOutDiv.innerHTML = '';
+      logInOutDiv.appendChild(createLinkElement("Logout here",loginInfo.logUrl));
+      logInOutDiv.style.display="block";
+  }else{
+      logInOutDiv.innerHTML = '';
+      logInOutDiv.appendChild(createLinkElement("Login to Add Comments",loginInfo.logUrl));
+      logInOutDiv.style.display="block";
+  }
+}
+
 /** Creates an <li> element containing text. */
 function createListElement(text) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
   return liElement;
+}
+/*Creates a <a> element containing text */
+function createLinkElement(text,link) {
+  const linkElement = document.createElement('a');
+  linkElement.appendChild(document.createTextNode(text));
+  linkElement.title = text;
+  linkElement.href = link;
+  return linkElement;
 }
