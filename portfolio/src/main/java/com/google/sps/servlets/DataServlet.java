@@ -19,6 +19,8 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.api.users.UserService;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 import java.util.List;
@@ -35,40 +37,43 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("userComment").addSort("timestamp", SortDirection.DESCENDING);
-     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
         String userComment = (String) entity.getProperty("userComment");
         long timestamp = (long) entity.getProperty("timestamp");
+        String email = (String) entity.getProperty("email");
 
-        messages.add(userComment);
+        messages.add(email + ": " + userComment);
     }
-
     Gson gson = new Gson();
     String json = gson.toJson(messages);
 
     response.setContentType("application/json");
     response.getWriter().println(json);
   }
-  /*public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
-    String UserComment = request.getParameter("text-input");
-    messages.add(UserComment);
-    // Redirect to html page.
-    response.sendRedirect("/index.html");
-  }
-  */
+
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    UserService userService = UserServiceFactory.getUserService();
+    // Only logged-in users can post messages
+    if (!userService.isUserLoggedIn()) {
+      response.sendRedirect("/login");
+      return;
+    }
+
     String userComment = request.getParameter("text-input");
+    String email = userService.getCurrentUser().getEmail();
     long timestamp = System.currentTimeMillis();
+
     //save the user comments
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Entity taskEntity = new Entity("userComment");
     taskEntity.setProperty("userComment", userComment);
+    taskEntity.setProperty("email", email);
     taskEntity.setProperty("timestamp", timestamp);
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(taskEntity);
 
     response.sendRedirect("/index.html");
