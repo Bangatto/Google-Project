@@ -1,6 +1,6 @@
 # Google Software Product Sprint
 
-This repo contains the Kuon`s porfolio and SPS projects.
+This repo contains Kuon`s porfolio and SPS projects.
 
 To get started:
 
